@@ -220,7 +220,7 @@ static int write_alsa(audio_output_t *ao, unsigned char *buf, int bytes)
 		&& snd_pcm_recover(pcm, (int)written, 0) == 0
 	)
 	{
-		debug3("recovered from alsa issue %i while trying to write %lu frames", (int)written, (unsigned long)frames);
+		debug2("recovered from alsa issue %i while trying to write %lu frames", (int)written, (unsigned long)frames);
 	}
 	if(written < 0)
 	{
