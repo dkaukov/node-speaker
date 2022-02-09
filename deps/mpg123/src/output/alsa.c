@@ -103,7 +103,7 @@ static int initialize_device(audio_output_t *ao)
 		if(!AOQUIET) error2("initialize_device(): rate %ld not available, using %u", ao->rate, rate);
 		/* return -1; */
 	}
-	buffer_size = 4096;/*rate * BUFFER_LENGTH;*/
+	buffer_size = 512;/*rate * BUFFER_LENGTH;*/
 	if (snd_pcm_hw_params_set_buffer_size_near(pcm, hw, &buffer_size) < 0) {
 		if(!AOQUIET) error("initialize_device(): cannot set buffer size");
 		return -1;
