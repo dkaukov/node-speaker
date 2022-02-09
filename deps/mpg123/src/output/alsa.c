@@ -215,9 +215,9 @@ static int write_alsa(audio_output_t *ao, unsigned char *buf, int bytes)
 	written = snd_pcm_writei(pcm, buf, frames);
 	
 	if (written < 0)
-            written = snd_pcm_recover(pcm, written, 0);
+            written = snd_pcm_recover(pcm, written, 1);
         if (written < 0) {
-           return -1;
+           return 0;
         }
 	return snd_pcm_frames_to_bytes(pcm, written);
 }
