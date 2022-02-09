@@ -214,9 +214,6 @@ static int write_alsa(audio_output_t *ao, unsigned char *buf, int bytes)
 	frames = snd_pcm_bytes_to_frames(pcm, bytes);
 	written = snd_pcm_writei(pcm, buf, frames);
 	
-	if (written < 0) {
-          written = snd_pcm_recover(pcm, written, 1);
-        }
 	
 	if (written == -EINTR) /* interrupted system call */
 		written = 0;
