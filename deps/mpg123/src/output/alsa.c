@@ -220,12 +220,12 @@ static int write_alsa(audio_output_t *ao, unsigned char *buf, int bytes)
 		&& snd_pcm_recover(pcm, (int)written, 0) == 0
 	)
 	{
-		debug("recovered from alsa issue %i while trying to write %lu frames", (int)written, (unsigned long)frames);
+		debug3("recovered from alsa issue %i while trying to write %lu frames", (int)written, (unsigned long)frames);
 	}
 	if(written < 0)
 	{
 		if(!AOQUIET)
-			error("Fatal problem with alsa output, error %i.", (int)written);
+			error1("Fatal problem with alsa output, error %i.", (int)written);
 		return -1;
 	}
 	else return snd_pcm_frames_to_bytes(pcm, written);
