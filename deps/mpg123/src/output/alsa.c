@@ -124,7 +124,7 @@ static int initialize_device(audio_output_t *ao)
 		return -1;
 	}
 	/* start playing after the first write */
-	if (snd_pcm_sw_params_set_start_threshold(pcm, sw, 1) < 0) {
+	if (snd_pcm_sw_params_set_start_threshold(pcm, sw, (buffer_size / period_size) * period_size) < 0) {
 		if(!AOQUIET) error("initialize_device(): cannot set start threshold");
 		return -1;
 	}
