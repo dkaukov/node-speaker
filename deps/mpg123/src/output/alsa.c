@@ -214,29 +214,13 @@ static int write_alsa(audio_output_t *ao, unsigned char *buf, int bytes)
 	frames = snd_pcm_bytes_to_frames(pcm, bytes);
 	written = snd_pcm_writei(pcm, buf, frames);
 	
-	
-	if (written == -EINTR) /* interrupted system call */
-		written = 0;
-	else if (written == -EPIPE) { /* underrun */
-		if (snd_pcm_prepare(pcm) >= 0)
-			written = snd_pcm_writei(pcm, buf, frames);
-	}
-	if (written >= 0)
-		return snd_pcm_frames_to_bytes(pcm, written);
-	else
-	{
-		if(snd_pcm_state(pcm) == SND_PCM_STATE_SUSPENDED)
-		{
-			/* Iamnothappyabouthisnothappyreallynot. */
-			snd_pcm_resume(pcm);
-			if(snd_pcm_state(pcm) == SND_PCM_STATE_SUSPENDED)
-			{
-				error("device still suspended after resume hackery... giving up");
-				return -1;
-			}
-		}
-		return 0;
-	}
+	if (written < 0)
+            written = snd_pcm_recover(pcm, written, 0);
+        if (frames < 0) {
+           printf("snd_pcm_writei failed: %s\n", snd_strerror(written));
+           return 0;
+        }
+	return snd_pcm_frames_to_bytes(pcm, written);
 }
 
 static void flush_alsa(audio_output_t *ao)
