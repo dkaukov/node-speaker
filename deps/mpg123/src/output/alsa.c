@@ -124,14 +124,12 @@ static int initialize_device(audio_output_t *ao)
 		return -1;
 	}
 	/* start playing after the first write */
+	/*
 	if (snd_pcm_sw_params_set_start_threshold(pcm, sw, (buffer_size / period_size) * period_size) < 0) {
 		if(!AOQUIET) error("initialize_device(): cannot set start threshold");
 		return -1;
 	}
-	if (snd_pcm_sw_params_set_stop_threshold(pcm, sw, buffer_size * 4) < 0) {
-		if(!AOQUIET) error("initialize_device(): cannot set start stop threshold");
-		return -1;
-	}
+	*/
 	/* wake up on every interrupt */
 	if (snd_pcm_sw_params_set_avail_min(pcm, sw, 1) < 0) {
 		if(!AOQUIET) error("initialize_device(): cannot set min available");
