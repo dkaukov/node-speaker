@@ -21,7 +21,7 @@
 #include "debug.h"
 
 
-#define BUFFER_LENGTH 0.1	/* in seconds */
+#define BUFFER_LENGTH 0.066666667	/* in seconds */
 
 static const struct {
 	snd_pcm_format_t alsa;
