@@ -217,9 +217,9 @@ static int write_alsa(audio_output_t *ao, unsigned char *buf, int bytes)
 		written = 0;
 	else if (written == -EPIPE) { /* underrun */
 		warning("EPIPE (buffer underflow)");
-		written = 0;
+		//written = 0;
 		//if (snd_pcm_prepare(pcm) >= 0)
-		//	written = snd_pcm_writei(pcm, buf, frames);
+		written = snd_pcm_writei(pcm, buf, frames);
 	}
 	if (written >= 0)
 		return snd_pcm_frames_to_bytes(pcm, written);
