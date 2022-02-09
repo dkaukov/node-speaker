@@ -133,14 +133,12 @@ static int initialize_device(audio_output_t *ao)
 		return -1;
 	}
 	
-	snd_pcm_uframes_t boundary;
-	snd_pcm_sw_params_get_boundary( sw, &boundary );
 	
-	if (snd_pcm_sw_params_set_silence_threshold(pcm, sw, 0) < 0) {
+	if (snd_pcm_sw_params_set_silence_threshold(pcm, sw, 1) < 0) {
 		if(!AOQUIET) error("initialize_device(): cannot set silence threshold");
 		return -1;
 	}
-	if (snd_pcm_sw_params_set_silence_size(pcm, sw, boundary) < 0) {
+	if (snd_pcm_sw_params_set_silence_size(pcm, sw, 1) < 0) {
 		if(!AOQUIET) error("initialize_device(): cannot set silence threshold");
 		return -1;
 	}
