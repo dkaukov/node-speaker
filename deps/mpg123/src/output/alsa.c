@@ -104,7 +104,7 @@ static int initialize_device(audio_output_t *ao)
 		/* return -1; */
 	}
 	//buffer_size = rate * BUFFER_LENGTH;
-	buffer_size = 1024;
+	buffer_size = 1024 * 3;
 	if (snd_pcm_hw_params_set_buffer_size_near(pcm, hw, &buffer_size) < 0) {
 		if(!AOQUIET) error("initialize_device(): cannot set buffer size");
 		return -1;
